@@ -11,6 +11,6 @@ COPY . /code
 RUN pip install pipenv
 RUN pipenv install --system
 
-WORKDIR /code/app/
+WORKDIR /code/
 
 CMD [ "python", "-m", "flask", "run", "--host=0.0.0.0" ]

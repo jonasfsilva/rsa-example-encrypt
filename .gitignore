@@ -288,4 +288,3 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/linux,macos,django,python,windows,pycharm+all,visualstudiocode
 app-firebase-key.json
-# instance/

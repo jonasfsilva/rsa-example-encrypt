@@ -40,5 +40,6 @@ services:
     links:
       # - rabbitmq
       - jaeger
-    # environment:
-    #   BROKER_URL: 'amqp://admin:12345678@rabbitmq_rb/'  
+      # environment:
+      #   APP_CONFIG_FILE: '../config/production.py'  
+    # command: "ls"
