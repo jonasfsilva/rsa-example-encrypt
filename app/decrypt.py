@@ -1,3 +1,4 @@
+import base64
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization
@@ -24,33 +25,27 @@ class Decrypt:
         return self.private_key
 
     def decrypt_value(self, encrypted_value):
+        # TODO receive bytes (b64)| return str
+        b64value = base64.b64decode(encrypted_value)
         original_data = self.private_key.decrypt(
-            encrypted_value,
+            b64value,
             padding.OAEP(
                 mgf=padding.MGF1(algorithm=hashes.SHA256()),
                 algorithm=hashes.SHA256(),
                 label=None
             )
         )
-        return original_data
-
-    def apply_decrypt(self, encrypted):
-        decrypted = {}
-        if isinstance(dict, encrypted):
-            for key, value in encrypted.items():
-                result = self.decrypt_value(value)
-                decrypted[key] = result
-        return decrypted
+        return bytes.decode(original_data)
 
 
-# generate private_key
-    # save key on certificates folder
-# generate public_key
-    # save key on certificates folder
-# encrypt with public_key
-    # receive dict and encrypt
-# dencrypt with public_key
-    # receive dict and encrypt
-
-# ter as chaves geradas localmente e aplicar a criptografia com a public
-# ter as chaves geradas localmente e aplicar a decriptografia com a privada
+def decrypt_card_data(holder, number, cvv):
+    dec_instance = Decrypt()
+    dec_instance.load_privatekey_from_file()
+    
+    encrypted_card_data = {
+        "number": dec_instance.decrypt_value(number),
+        "holder": dec_instance.decrypt_value(holder),
+        "cvv": dec_instance.decrypt_value(cvv)
+    }
+    
+    return encrypted_card_data
