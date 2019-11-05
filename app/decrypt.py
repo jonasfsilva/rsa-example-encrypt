@@ -41,11 +41,21 @@ class Decrypt:
 def decrypt_card_data(holder, number, cvv):
     dec_instance = Decrypt()
     dec_instance.load_privatekey_from_file()
-    
-    encrypted_card_data = {
-        "number": dec_instance.decrypt_value(number),
-        "holder": dec_instance.decrypt_value(holder),
-        "cvv": dec_instance.decrypt_value(cvv)
-    }
-    
+
+    try:
+        encrypted_card_data = {
+            "number": dec_instance.decrypt_value(number),
+            "holder": dec_instance.decrypt_value(holder),
+            "cvv": dec_instance.decrypt_value(cvv)
+        }
+    except:
+        raise ValueError({
+            "message": 'Invalid Card Hash', 
+            "error_code": 1 
+        })
     return encrypted_card_data
+
+
+# TODO validate b64
+# TODO Invalid hash 
+#   - ValueError: Ciphertext length must be equal to key size.

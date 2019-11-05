@@ -1,0 +1,12 @@
+version: '3.0'
+services:
+  temcriptografia:  
+    build: .
+    ports:
+      - "5000:5000" 
+  tests:
+    build: ./tests/
+    depends_on:
+      - temcriptografia
+    command: python test_integrations.py
+  

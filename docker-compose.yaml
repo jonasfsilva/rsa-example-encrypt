@@ -1,9 +1,12 @@
 version: '3.0'
 services:
   temcriptografia:  
+    container_name: temcriptografia
     build: .
     ports:
       - "5000:5000"
+    volumes:
+      - .:/app
     # depends_on: 
     #   - jaeger
     # links:
